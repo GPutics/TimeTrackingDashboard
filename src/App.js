@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
 
-function App() {
+// Styling
+import './styles/globals.scss';
+
+// Data
+import data from './data.json';
+import picture from './assets/image-jeremy.png'
+
+// Components
+import Card from './components/Card/Card';
+import Profile from './components/Profile/Profile';
+
+const App = () => {
+  const [filterTime, setFilterTime] = useState('weekly');
+
+  const handleClick = (time) => {
+    setFilterTime(time);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <div className="profile">
+        <Profile name={"Jeremy Robson"} picture={picture} handleClick={handleClick} filterTime={filterTime} setFilterTime={setFilterTime} />
+      </div>
+      <div className="cards-container">
+        {data.map((item) => (
+          <Card item={item} filterTime={filterTime} />
+        ))}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+
